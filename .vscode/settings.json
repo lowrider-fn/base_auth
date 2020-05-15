@@ -1,0 +1,15 @@
+{
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "flutterStylizer.memberOrdering": [
+        "public-constructor",
+        "named-constructors",
+        "public-static-variables",
+        "public-instance-variables",
+        "private-static-variables",
+        "private-instance-variables",
+        "public-override-methods",
+        "public-other-methods",
+        "build-method",
+    ],
+}
