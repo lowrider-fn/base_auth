@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+
 import 'package:base_auth/components/common/field.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -24,6 +25,10 @@ class _RegisterFormState extends State<RegisterForm> {
     'phone': '',
     'email': ''
   };
+  final _phoneController = MaskedTextController(
+      text: _form['phone'],
+      mask: "+# (###) ###-##-##",
+      translator: {"#": RegExp(r'[0-9]')});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -37,12 +42,10 @@ class _RegisterFormState extends State<RegisterForm> {
     EmailValidator(errorText: 'Введите корректный email'),
   ]);
 
-  // final _phoneValidator = MultiValidator([
-  //   // RequiredValidator(errorText: 'Заполните поле'),
-  //   // PhoneValidator(errorText: 'Введите корректный номер телефона'),
-  //   MinLengthValidator(11,
-  //       errorText: 'Длинна номера телефона не менее 11 символов'),
-  // ]);
+  final _phoneValidator = MultiValidator([
+    RequiredValidator(errorText: 'Заполните поле'),
+    MinLengthValidator(18, errorText: 'Допишите номер'),
+  ]);
 
   final _pwdDoubleValidator = MultiValidator([
     RequiredValidator(errorText: 'Заполните поле'),
@@ -96,10 +99,8 @@ class _RegisterFormState extends State<RegisterForm> {
                       type: TextInputType.emailAddress,
                     ),
                     Field(
-                      controller: MaskedTextController(
-                          mask: "+# (###) ###-##-##",
-                          translator: {"#": RegExp(r'[0-9]')}),
-                      // onValidate: _phoneValidator,
+                      controller: _phoneController,
+                      onValidate: _phoneValidator,
                       label: 'Номер телефона',
                       onInput: _phoneChange,
                       type: TextInputType.phone,
@@ -128,19 +129,6 @@ class _RegisterFormState extends State<RegisterForm> {
                       ))),
             ])),
       );
-}
-
-class PhoneValidator extends TextFieldValidator {
-  PhoneValidator({String errorText = 'enter a valid phone number'})
-      : super(errorText);
-
-  @override
-  bool get ignoreEmptyValues => true;
-
-  @override
-  bool isValid(String val) {
-    return hasMatch(r'^(?:[+0]9)?[0-9]{11}$', val);
-  }
 }
 
 class EqualValidator extends TextFieldValidator {
