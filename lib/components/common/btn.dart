@@ -18,7 +18,8 @@ class Btn extends StatelessWidget {
   TextStyle get styles => textStyle != null
       ? textStyle
       : TextStyle(
-          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          fontSize: 14,
           color: Colors.white,
         );
 

@@ -5,4 +5,7 @@ class Mask {
       text: val,
       mask: "+# (###) ###-##-##",
       translator: {"#": RegExp(r'[0-9]')});
+
+  static MaskedTextController code(String val) => MaskedTextController(
+      text: val, mask: "## ## ##", translator: {"#": RegExp(r'[0-9]')});
 }

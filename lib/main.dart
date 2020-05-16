@@ -3,6 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:base_auth/views/login.dart';
 import 'package:base_auth/views/register.dart';
+import 'package:base_auth/views/forgot_pwd.dart';
+import 'package:base_auth/views/update_pwd.dart';
+
 import 'package:base_auth/views/profile.dart';
 
 void main() => runApp(App());
@@ -60,6 +63,14 @@ class _AppState extends State<App> {
     });
   }
 
+  _restorePwd(form) {
+    print(form);
+  }
+
+  _updatePwd(form) {
+    print(form);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -76,7 +87,12 @@ class _AppState extends State<App> {
             : Login(toLogin: _loginUser, isLandscape: _isLandscape(context)),
         '/profile': (context) => Profile(),
         '/registration': (context) => Register(
-            toRegister: _createAccount, isLandscape: _isLandscape(context)),
+            onFormCompleated: _createAccount,
+            isLandscape: _isLandscape(context)),
+        '/forgot': (context) => ForgotPwd(
+            onFormCompleated: _restorePwd, isLandscape: _isLandscape(context)),
+        '/update': (context) => UpdatePwd(
+            onFormCompleated: _updatePwd, isLandscape: _isLandscape(context)),
       },
     );
   }

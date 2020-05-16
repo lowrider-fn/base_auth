@@ -28,6 +28,14 @@ class Validator {
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!-_()@#\$&*~])',
         errorText: 'Пароль должен иметь символ,цифру и заглавную букву')
   ]);
+
+  static final code = MultiValidator([
+    RequiredValidator(errorText: 'Заполните поле'),
+    MinLengthValidator(8, errorText: 'Длинна кода 6 символов'),
+    MaxLengthValidator(8, errorText: 'Длинна кода 6 символов'),
+    PatternValidator(r'^(?=.*?[0-9])',
+        errorText: 'Пароль должен иметь только цифры')
+  ]);
 }
 
 class EqualValidator extends TextFieldValidator {

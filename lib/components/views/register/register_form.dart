@@ -8,12 +8,12 @@ import 'package:base_auth/components/common/btn.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({
-    this.toRegister,
+    this.onFormCompleated,
     Key key,
-  })  : assert(toRegister != null),
+  })  : assert(onFormCompleated != null),
         super(key: key);
 
-  final toRegister;
+  final onFormCompleated;
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -43,7 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
   void _checkForm() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      widget.toRegister(_form);
+      widget.onFormCompleated(_form);
       Navigator.pop(context);
     }
   }
