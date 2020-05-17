@@ -8,7 +8,7 @@ import 'package:base_auth/components/common/btn.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({
-    this.onFormCompleated,
+    @required this.onFormCompleated,
     Key key,
   })  : assert(onFormCompleated != null),
         super(key: key);

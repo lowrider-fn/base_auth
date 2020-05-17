@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class View extends StatelessWidget {
   const View({
     this.width = 450,
-    this.padding,
+    @required this.padding,
     this.alignY = MainAxisAlignment.start,
-    this.children,
-    this.alignX,
+    @required this.children,
+    @required this.alignX,
     Key key,
   })  : assert(padding != null),
         assert(alignX != null),
@@ -14,11 +14,11 @@ class View extends StatelessWidget {
         assert(children != null),
         super(key: key);
 
-  final double width;
-  final EdgeInsets padding;
   final CrossAxisAlignment alignX;
   final MainAxisAlignment alignY;
   final List<Widget> children;
+  final EdgeInsets padding;
+  final double width;
 
   @override
   Widget build(BuildContext context) => Container(

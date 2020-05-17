@@ -1,99 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'package:base_auth/views/login.dart';
-import 'package:base_auth/views/register.dart';
-import 'package:base_auth/views/forgot_pwd.dart';
-import 'package:base_auth/views/update_pwd.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-import 'package:base_auth/views/profile.dart';
+import 'package:base_auth/views/auth/auth.dart';
 
-void main() => runApp(App());
+import 'package:base_auth/views/profile/profile.dart';
+import 'package:base_auth/store/models/user_model.dart';
 
-class App extends StatefulWidget {
-  App();
+void main() => runApp(App(model: UserModel()));
 
-  @override
-  _AppState createState() => _AppState();
-}
+class App extends StatelessWidget {
+  App({@required this.model}) : assert(model != null);
 
-class _AppState extends State<App> {
-  bool _isLogin = false;
-  dynamic _userData;
+  final UserModel model;
 
-  @override
-  void initState() {
-    super.initState();
-    _autoLogIn();
-  }
+  Route<dynamic> generateRoute(RouteSettings settings) {
+    model.autoLogin();
 
-  bool _isLandscape(context) =>
-      MediaQuery.of(context).orientation == Orientation.landscape;
-
-  Future<void> _autoLogIn() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String userData = prefs.getString('userData');
-
-    print(userData);
-    if (userData != null) {
-      setState(() {
-        _isLogin = true;
-        _userData = userData;
-      });
+    switch (settings.name) {
+      case '/':
+        return MaterialPageRoute(
+            builder: (_) => ScopedModelDescendant<UserModel>(
+                builder: (context, child, model) => model.isLogin
+                    ? Profile(model: model)
+                    : Auth(model: model)));
+      default:
+        return MaterialPageRoute(
+            builder: (_) => Scaffold(
+                  body: Center(
+                      child: Text('No route defined for ${settings.name}')),
+                ));
     }
   }
 
-  Future<Null> _loginUser(form) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('userData', jsonEncode(form));
-
-    setState(() {
-      _userData = form;
-      _isLogin = true;
-    });
-  }
-
-  Future<Null> _createAccount(form) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('userData', jsonEncode(form));
-
-    setState(() {
-      _userData = form;
-      _isLogin = true;
-    });
-  }
-
-  _restorePwd(form) {
-    print(form);
-  }
-
-  _updatePwd(form) {
-    print(form);
-  }
-
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Base auth',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => !_isLogin
-            ? Profile()
-            : Login(toLogin: _loginUser, isLandscape: _isLandscape(context)),
-        '/profile': (context) => Profile(),
-        '/registration': (context) => Register(
-            onFormCompleated: _createAccount,
-            isLandscape: _isLandscape(context)),
-        '/forgot': (context) => ForgotPwd(
-            onFormCompleated: _restorePwd, isLandscape: _isLandscape(context)),
-        '/update': (context) => UpdatePwd(
-            onFormCompleated: _updatePwd, isLandscape: _isLandscape(context)),
-      },
-    );
-  }
+  Widget build(BuildContext context) => ScopedModel<UserModel>(
+      model: model,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Base auth',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        onGenerateRoute: generateRoute,
+      ));
 }

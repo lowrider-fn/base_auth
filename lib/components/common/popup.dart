@@ -4,7 +4,7 @@ import 'package:base_auth/components/common/view.dart';
 
 class Popup extends StatelessWidget {
   const Popup({
-    this.children,
+    @required this.children,
     Key key,
   })  : assert(children != null),
         super(key: key);

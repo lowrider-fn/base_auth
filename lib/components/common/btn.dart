@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Btn extends StatelessWidget {
   Btn({
     Key key,
-    this.text,
+    @required this.text,
     this.color = Colors.blue,
     this.onPressed,
     this.textStyle,

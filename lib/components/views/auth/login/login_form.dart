@@ -7,12 +7,12 @@ import 'package:base_auth/components/common/btn.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
-    this.toLogin,
+    @required this.onFormCompleated,
     Key key,
-  })  : assert(toLogin != null),
+  })  : assert(onFormCompleated != null),
         super(key: key);
 
-  final toLogin;
+  final onFormCompleated;
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -29,7 +29,7 @@ class _LoginFormState extends State<LoginForm> {
   void _checkForm() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      widget.toLogin(_form);
+      widget.onFormCompleated(_form);
     }
   }
 

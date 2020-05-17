@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:base_auth/components/common/view.dart';
 import 'package:base_auth/components/common/text_box.dart';
-import 'package:base_auth/components/views/register/register_form.dart';
+import 'package:base_auth/components/views/auth/register/register_form.dart';
 import 'package:base_auth/components/common/btn_underline.dart';
+import 'package:base_auth/components/common/head_text.dart';
 
 class Register extends StatelessWidget {
-  Register({Key key, this.isLandscape, this.onFormCompleated})
+  Register(
+      {Key key, @required this.isLandscape, @required this.onFormCompleated})
       : assert(onFormCompleated != null && isLandscape != null),
         super(key: key);
 
@@ -23,10 +25,7 @@ class Register extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 80, horizontal: 15),
               alignX: CrossAxisAlignment.center,
               children: [
-            TextBox(
-                textStyle: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-                text: 'Создать аккаунт',
-                margin: EdgeInsets.only(bottom: 10)),
+            HeadText(text: 'Создать аккаунт'),
             Text('Регистрация занимает 30 секунд.',
                 style: TextStyle(fontSize: 16)),
             Text('После регистрации вы получите',

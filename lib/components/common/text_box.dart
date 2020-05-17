@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TextBox extends StatelessWidget {
   TextBox({
     Key key,
-    this.text,
+    @required this.text,
     this.padding = const EdgeInsets.all(0),
     this.margin = const EdgeInsets.all(0),
     this.textStyle,

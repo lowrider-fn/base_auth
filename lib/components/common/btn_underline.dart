@@ -4,7 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 class BtnUnderline extends StatelessWidget {
   BtnUnderline({
     Key key,
-    this.text,
+    @required this.text,
     this.color = Colors.blue,
     this.onTap,
     this.textStyle,
