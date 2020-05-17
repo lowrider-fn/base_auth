@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'package:base_auth/views/auth/auth.dart';
-
 import 'package:base_auth/views/profile/profile.dart';
-import 'package:base_auth/store/models/auth_model.dart';
 import 'package:base_auth/store/root.dart';
 
 void main() => runApp(App(store: RootStore()));

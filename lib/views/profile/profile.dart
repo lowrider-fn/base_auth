@@ -9,7 +9,32 @@ class Profile extends StatelessWidget {
         super(key: key);
 
   final AuthModel model;
-
+  static List<BottomNavigationBarItem> navigationBarItems = [
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.person,
+      ),
+      title: Text(
+        "Профиль",
+      ),
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.web, // event_note
+      ),
+      title: Text(
+        "Лента",
+      ),
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.settings, // grid_on
+      ),
+      title: Text(
+        "Настройки",
+      ),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     final isLandscape =
@@ -20,9 +45,9 @@ class Profile extends StatelessWidget {
             home: Scaffold(
           appBar: AppBar(
             title: Text('Профиль'),
-            elevation: 0.0,
-            leading: IconButton(
-                onPressed: model.logout, icon: Icon(Icons.exit_to_app)),
+            actions: [
+              IconButton(onPressed: model.logout, icon: Icon(Icons.exit_to_app))
+            ],
           ),
           body: Center(
             child: View(
@@ -32,6 +57,14 @@ class Profile extends StatelessWidget {
                 Text('Профиль'),
               ],
             ),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: 1,
+            type: BottomNavigationBarType.fixed,
+            fixedColor: Colors.white, backgroundColor: Colors.blue,
+            unselectedItemColor: Colors.black,
+            items: navigationBarItems,
+            // onTap: _onTap,
           ),
         )));
   }
