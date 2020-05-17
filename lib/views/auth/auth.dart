@@ -6,18 +6,18 @@ import 'package:base_auth/views/auth/views/register.dart';
 import 'package:base_auth/views/auth/views/forgot_pwd.dart';
 import 'package:base_auth/views/auth/views/update_pwd.dart';
 
-import 'package:base_auth/store/models/user_model.dart';
+import 'package:base_auth/store/models/auth_model.dart';
 
 class Auth extends StatelessWidget {
   Auth({@required this.model}) : assert(model != null);
 
-  final UserModel model;
+  final AuthModel model;
 
   @override
   Widget build(BuildContext context) {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    return ScopedModel<UserModel>(
+    return ScopedModel<AuthModel>(
         model: model,
         child: MaterialApp(initialRoute: '/', routes: {
           '/': (context) =>

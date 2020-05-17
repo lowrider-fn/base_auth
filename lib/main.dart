@@ -4,7 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:base_auth/views/auth/auth.dart';
 
 import 'package:base_auth/views/profile/profile.dart';
-import 'package:base_auth/store/models/user_model.dart';
+import 'package:base_auth/store/models/auth_model.dart';
 import 'package:base_auth/store/root.dart';
 
 void main() => runApp(App(store: RootStore()));
@@ -24,7 +24,7 @@ class App extends StatelessWidget {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            builder: (_) => ScopedModelDescendant<UserModel>(
+            builder: (_) => ScopedModelDescendant<RootStore>(
                 builder: (context, child, model) => model.isLogin
                     ? Profile(model: model)
                     : Auth(model: model)));
@@ -39,9 +39,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    store.user.autoLogin();
-    return ScopedModel<UserModel>(
-        model: store.user,
+    store.autoLogin();
+    return ScopedModel<RootStore>(
+        model: store,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Base auth',

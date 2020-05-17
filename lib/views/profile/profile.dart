@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:base_auth/store/models/user_model.dart';
+import 'package:base_auth/store/models/auth_model.dart';
 import 'package:base_auth/components/common/view.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -8,13 +8,13 @@ class Profile extends StatelessWidget {
       : assert(model != null),
         super(key: key);
 
-  final UserModel model;
+  final AuthModel model;
 
   @override
   Widget build(BuildContext context) {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    return ScopedModel<UserModel>(
+    return ScopedModel<AuthModel>(
         model: model,
         child: MaterialApp(
             home: Scaffold(
@@ -36,23 +36,3 @@ class Profile extends StatelessWidget {
         )));
   }
 }
-// onGenerateRoute: generateRoute,
-
-// Route<dynamic> generateRoute(RouteSettings settings) {
-//   model.autoLogin();
-
-//   switch (settings.name) {
-//     case '/':
-//       return MaterialPageRoute(
-//           builder: (_) => ScopedModelDescendant<UserModel>(
-//               builder: (context, child, model) => model.isLogin
-//                   ? Profile(model: model)
-//                   : Auth(model: model)));
-//     default:
-//       return MaterialPageRoute(
-//           builder: (_) => Scaffold(
-//                 body: Center(
-//                     child: Text('No route defined for ${settings.name}')),
-//               ));
-//   }
-// }

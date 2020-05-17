@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserModel extends Model {
+mixin AuthModel on Model {
   bool _isLogin = false;
   dynamic _userData;
   bool get isLogin => _isLogin;
